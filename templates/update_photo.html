@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+
+<div class="has-text-centered">
+
+    <br>
+    <h1 class="title is-2">Update your profile picture</h1><br><br>
+
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="control">
+            <div class="level" style="width: 55%; margin: 0 auto 0 auto;">
+                <div class="level-left">
+                    <img src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}" style="width: 170px;
+                        height: 170px;" class="profile">
+                </div>
+                <div class="level-item">
+                    <span class="icon is-large">
+                        <i class="fas fa-3x fa-long-arrow-alt-right"></i>
+                    </span>
+                </div>
+                <div class="level-right">
+                    <div class="file has-name is-boxed is-large is-centered">
+                        <label class="file-label">
+
+
+                            <input class="file-input" type="file" name="file">
+
+
+                            <span class="file-cta">
+                                <span class="file-icon">
+                                    <i class="fas fa-upload"></i>
+                                </span>
+                                <span class="file-label">
+                                    Choose a file…
+                                </span>
+                            </span>
+                            <span
+                                class="file-name has-text-light has-text-weight-semibold has-text-centered">
+                                <p class="is-uppercase">{{user.username}}</p>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+
+        <button type="submit" class="button is-medium is-rounded"><i
+                class="fas fa-cloud-upload-alt"></i>&nbsp;&nbsp;Submit</button>
+
+    </form>
+</div>
+
+{% endblock %}

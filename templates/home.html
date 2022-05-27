@@ -1,0 +1,216 @@
+{% extends 'layout.html' %}
+{% block body %}
+{% include 'includes/_navbar.html' %}
+
+{% block navigation %}
+<div style="position: fixed; bottom: 0; right: 0; margin: 2rem; z-index: 999999;">
+    <a href="{{url_for('new_post')}}">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored " style="background-color: #3F51B5;">
+            <i class="material-icons">add</i>
+          </button>
+    </a>
+</div>
+{% endblock %}
+<style>
+    .micro-card {
+        background-color: #3F51B5;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 2rem;
+        width: 27.5rem;
+        margin-bottom: 2rem;
+        height: 3.7em;
+    }
+
+    .micro-card p {
+        font-size: 1rem;
+    }
+    .title {
+        color: white;
+    }
+</style>
+<!-- Info Micro Card-->
+{% if showTrending %}
+
+{% endif %}
+
+
+<div class="columns" style="margin-right: 10rem; margin-left: 10rem;">
+    <div class="column is-one-quarter is-hidden-touch">
+        {% if user != None %}
+        <div class="wrap" style="position: -webkit-sticky; position: sticky; top: 0;">
+            <h2 class="title is-2">Profile</h2>
+            <div class="box" style="background: #3F51B5; color: white;">
+                <div class="columns" >
+                   
+                    {% set profile_pic = url_for('static', filename='profile_pics/' + user.image_file) %}
+                    <div class="column is-one-third">
+                        <img src="{{ profile_pic }}" width="80" class="profile">
+                    </div>
+                    <div class="column">
+                        <a href="profile/{{user.id}}">
+                            <h5 class="title is-5 has-text-info">@{{ user.username }}&nbsp;
+                                {% if user.verified %}
+                                <i class="fas fa-check-circle"></i>
+                                {% endif %}
+                            </h5>
+                        </a>
+                        <h6 class="subtitle is-6" style="margin-bottom: 1rem; font-size: 80%; color: white;">{{ user.email }}</h6>
+
+
+                        <div class="level">
+                            <div class="level-left">
+                                <div class="content is-small">
+                                    <small>Posts</small>
+                                    {% set user_posts = Post_model.query.filter_by(user_id=user.id).all() %}
+                                    <h4 style="margin-bottom: 0;">{{ user_posts|length }}</h4>
+                                </div>
+                               
+                            </div>
+                            <div class="level-item">
+                                <div class="content is-small">
+                                    <small>Following</small>
+                                    {% set user_following = [] %}
+                                    {% for user_query in User.query.all() %}
+                                    {% for user_query_followers in user_query.followers.all() %}
+                                    {% if user_query_followers == user %}
+                                    {% set user_following = user_following.append(user) %}
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endfor %}
+                                    <h4 style="margin-bottom: 0;">{{ user_following|length }}</h4>
+                                </div>
+                            </div>
+                            <div class="level-item">
+                                <div class="content is-small">
+                                    <small>Followers</small>
+                                    {% set user_followers = user.followers.all() %}
+                                    <h4 style="margin-bottom: 0;">{{ user_followers|length }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                
+                      
+                        </div>
+                     
+                    </div>
+                </div>
+                <h4 style="color: white">Suggested Users</h4>
+                <div class="box" style="background: #212121;">
+               
+                        {% for suggestion in follow_suggestions %}
+                        <div class="columns is-vcentered" style="margin-top: 2px; margin-bottom: 2px;">
+                            <div class="column is-one-third">
+                                <img src="{{ url_for('static', filename='profile_pics/' + suggestion.image_file) }}"
+                                    alt="{{ suggestion.username }}" class="profile" width="60">
+                            </div>
+                            <div class="column">
+                                <h2 class="title is-6">{{ suggestion.username }}</h2>
+                            </div>
+                            <div class="column is-one-quarter" style=" background: #212121;">
+                                {% if user in suggestion.followers.all() %}
+                                <a href="{{ url_for('unfollow', id=suggestion.id) }}" style=" background: #212121;">
+                                    <div class="box icon has-background-light is-small" style="background: #ff6b6b;">
+                                        <i class="fas fa-user-minus has-text-danger"></i>
+                                    </div>
+                                </a>
+                                {% else %}
+                                <a href="{{ url_for('follow', id=suggestion.id) }}" style=" background: #212121;">
+                                    <div class="box has-background-info icon is-small"  style="background: #ff6b6b;">
+                                        <i class="fas fa-user-plus has-text-white"></i>
+                                    </div>
+                                </a>
+                                {% endif %}
+        
+                            </div>
+                        </div>
+                        {% if suggestion != follow_suggestions[-1] %}
+                        <hr class="is-marginless">
+                        {% endif %}
+        
+                        {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="column is-half">
+
+        <div class="level is-hidden-touch">
+            <div class="level-left">
+                <h2 class="title is-2">Latest Ideas</h2>
+            </div>
+            <div class="level-right">
+                <div class="field has-addons" style="margin: .5rem 6rem 0 0;">
+                    <p class="control">
+                        {% if url_for(request.endpoint) == url_for('home') %}
+                        <a style="background: #ff6b6b;" class="button has-text-white has-text-weight-bold"
+                            href="{{ url_for('home') }}">
+                            <span>Explore</span>
+                        </a>
+                        {% else %}
+                        <a style="background: white;" class="button" href="{{ url_for('home') }}">
+                            <span>Explore</span>
+                        </a>
+                        {% endif %}
+                    </p>
+                    <p class="control">
+                        {% if url_for(request.endpoint) == url_for('home_following') %}
+                        <a class="button has-text-white has-text-weight-bold" style="background: #ff6b6b;"
+                            href="{{ url_for('home_following') }}">
+                            <span>Following</span>
+                        </a>
+                        {% else %}
+                        <a class="button" href="{{ url_for('home_following') }}">
+                            <span>Following</span>
+                        </a>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        {% for post in posts|reverse %}
+
+
+        {% include "includes/_post.html" %}
+
+        {% endfor %}
+
+    </div>
+
+
+
+
+{% if showTrending %}
+
+    <div class="column is-one-quarter is-hidden-touch">
+        <div class="wrap" style="position: -webkit-sticky; position: sticky; top: 0;">
+          
+            <h2 class="title is-2">Trending</h2>
+            <div class="box" style=" background: #212121;">
+                <i class="fab fa-hotjar fa-4x" style="color: white; font-size: 1.6rem;">
+
+                </i>
+                    
+             {% for post in trending %}
+             
+             <div class="trendingPost">
+              
+                <h4 style="font-size: 1.1rem; color: white" style="margin-bottom: 0;">{{ post[1] }} | Planet Points: {{ post[0] }}</h4>
+                <span>By <a href="profile/{{post[2]}}">@{{ post[3] }}</a></span>
+            </div>
+             {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+
+
+
+</div>
+
+
+
+{% endblock %}

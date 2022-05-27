@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <title>Project Mars</title>
+    <!--<link rel="shortcut icon" href="{{ url_for('static', filename='graphics/' + 'tweeeter-logo.png') }}"
+        type="image/x-icon"> -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.15.2/js/all.js" integrity="sha384-vuFJ2JiSdUpXLKGK+tDteQZBqNlMwAjhZ3TvPaDfN9QmbPb7Q8qUpbSNapQev3YF" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    {% block head %}{% endblock %}
+</head>
+
+<body class="has-navbar-fixed-top">
+    
+
+
+    <style>
+        img.profile {
+            object-fit: cover;
+            border-radius: 50%;
+            /* width: 80px;
+            height: 80px; */
+            /* set inline */
+        }
+        html {
+            font-family: 'Roboto', sans-serif;
+            background: url("../static/graphics/homeBg.svg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: white;
+        }
+        .is-success{
+            display: flex;
+            width:100%;
+            align-items: center;
+            justify-content: center;
+        }
+        
+    </style>
+
+
+
+        {% include 'includes/_flash.html' %}
+    {% block body %}
+
+    {% endblock %}
+     
+
+
+
+</body>
+
+</html>

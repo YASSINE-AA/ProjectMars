@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+<style>
+     html {
+        background: url("../static/bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+    }
+
+    .registerForm {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        width: 25rem;
+        height: 500px;
+        padding: 3rem 1rem;
+        border-radius: 0.2rem;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        border-radius: 3rem;
+
+        margin: 0 auto;
+
+    }
+        .registerForm p {
+            margin-top: 1rem;
+        }
+        .container2{
+    display: flex;
+    flex-direction: column;
+    }
+    .container2::before,
+    .container2::after {
+    content: "";
+    flex: 1;
+    }
+</style>
+<div class="container2">
+
+<div class="registerForm">
+    <h1 class="title is-1">Register</h1>
+    {% from 'includes/_formhelpers.html' import render_field %}
+    <form action="" method="POST" style="width: 45%;">
+        <div class="control" style="margin-bottom: 1.5rem;">
+            {{ render_field(form.username, class_ = "input field") }}
+        </div>
+        <div class="control" style="margin-bottom: 1.5rem;">
+            {{ render_field(form.email, class_ = "input field") }}
+        </div>
+        <div class="control" style="margin-bottom: 1.5rem;">
+            {{ render_field(form.password, class_ = "input field") }}
+        </div>
+        <div class="control" style="margin-bottom: 1.5rem;">
+            {{ render_field(form.confirm, class_ = "input field") }}
+        </div>
+        <label for="cars">Account Type:</label>
+  <select id="cars" name="type">
+    <option value="Business">Business</option>
+    <option value="Creative">Creative</option>
+    <option value="Regular">Regular</option>
+  </select>
+        <input type="submit" value="Submit" class="button">
+    </form>
+</div>
+</div>
+
+{% endblock %}

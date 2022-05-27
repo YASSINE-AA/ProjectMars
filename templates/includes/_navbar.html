@@ -1,0 +1,116 @@
+<div class="navbar is-fixed-top has-text-weight-semibold" style=" background-color: #3F51B5; color:  white;">
+    <div class="container">
+        <div class="navbar-menu">
+
+            <div class="navbar-start">
+                <!-- logic for underlining current tab -->
+                {% if request.path == "/" %}
+
+                <style>
+                .drop {
+                    
+                }
+                .navbar a {
+                    color: white !important;
+                }
+                .navbar {
+                    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+                }
+                a.home-nav {
+                        color: white;
+                        border-bottom: 1px solid #3F51B5;
+                    }
+                </style>
+                {% elif request.path == "/notifications" %}
+                <style>
+                    a.notif-nav {
+                        color: white;
+
+                        border-bottom: 1px solid white;
+                    }
+                </style>
+                {% elif request.path == '/messages' %}
+                <style>
+                    a.msg-nav {
+                        color: white;
+
+                        border-bottom: 1px solid white;
+                    }
+                </style>
+                {% elif request.path == '/search' %}
+                <style>
+                    .search-nav {
+                        color: white;
+
+                        border-bottom: 1px solid white;
+                    }
+                </style>
+                {% endif %}
+
+                <a  href="/" class="navbar-item home-nav">&lt;projectMars/&gt;</a>
+              
+            </div>
+
+        </div>
+
+        <div class="navbar-brand">
+
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item search-nav">
+                    <form action="{{ url_for('search')  }}" method="POST">
+                        <div class="control has-icons-right">
+                            <input type="search" placeholder="Search" class="input is-rounded" name="search">
+                            <span class="icon is-right">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                {% if session.logged_in %}
+            
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-item">
+                        <span>
+                            <i class="fas fa-lg fa-ellipsis-v"></i>
+                        </span>
+                    </a>
+                    <div style="position: relative; left: -7rem">
+                                           <div class="navbar-dropdown">
+                                              
+                        <a class="navbar-item drop" style="color: black !important;">Signed In as: {{session.username}} </a>
+                        <a class="navbar-item drop" style="color: black !important;" href="{{ url_for('profile') }}">
+                            <i class="fas fa-user"></i>&nbsp;&nbsp;Profile
+                        </a>
+                        <a class="navbar-item drop" style="color: black !important;" href="{{ url_for('logout') }}">
+                            <i class="fas fa-sign-out-alt" style="color: black !important;"></i>&nbsp;&nbsp;Logout
+                        </a>
+                    </div>
+                </div>
+ 
+                </div>
+            </div>
+            {% else %}
+            <!--
+            <div class="navbar-item">
+                 <a href="{{ url_for('login') }}" class="button is-info is is-rounded">Login</a> 
+            </div>
+            <div class="navbar-item">
+                <a href="{{ url_for('register') }}" class="button is-info is is-rounded">Register</a>
+            </div>
+            -->
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+</div>

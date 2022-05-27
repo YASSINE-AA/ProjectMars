@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+{% include "includes/_post.html" %}
+
+<div class="columns is-centered">
+    <div class="column is-half">
+        {% set comments = Post_model.query.filter_by(comment=post.id).all() %}
+        {% for post in comments %}
+        {% include "includes/_post.html" %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

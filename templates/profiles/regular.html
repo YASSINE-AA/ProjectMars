@@ -1,0 +1,23 @@
+{% extends './layout.html' %}
+
+{% block body %}
+
+<h1 class="title is-1" style="color: white;">Profile</h1>
+<h2 class="subtitle is-4" style="color: white;">Welcome {{username}}</h2>
+<img src="{{ profile_pic }}" alt="Profile Picture" style="width: 100px; height: 100px;" class="profile">
+{% if modify %}
+
+<a href="{{ url_for('update_photo') }}" class="button is-success is-rounded" style="width: 40px; height: 40px;">
+    <i class="fas fa-user-edit"></i>
+</a>
+<a href="
+    {{ url_for('new_post') }}" class=" button is-rounded">New Post</a>
+<hr>
+{% for post in posts|reverse %}
+
+
+{% include "includes/_post.html" %}
+
+{% endfor %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+{% block navigation %} 
+{% endblock %}
+{% block body %}
+<style>
+    html {
+        background: url("../static/bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+    }
+
+    .loginForm {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        width: 25rem;
+        height: 400px;
+        padding: 3rem 1rem;
+        border-radius: 0.2rem;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        border-radius: 3rem;
+
+        margin: 0 auto;
+
+    }
+        .loginForm p {
+            margin-top: 1rem;
+        }
+        .container2{
+    display: flex;
+    flex-direction: column;
+    }
+    .container2::before,
+    .container2::after {
+    content: "";
+    flex: 1;
+    }
+    </style>
+<div class="container2">
+<div class="loginForm" style="text-align: center;">
+    <img src="{{ url_for('static', filename='graphics/mars.png') }}">
+    <h1 class="title is-1">Login</h1>
+    <form action="" method="POST">
+        <div class="control" style="margin-bottom: 1.5rem;">
+            <label for="email">Email</label>
+            <input type="text" name="email" class="input" value="{{request.form.email}}">
+        </div>
+        <div class="control" style="margin-bottom: 1.5rem;">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="input" value="{{request.form.password}}">
+        </div>
+        <button type="submit" class="button">Login</button>
+        <p>Don't have an account?&nbsp;&nbsp;<a href="{{ url_for('register') }}">Sign Up!</a></p>
+    </form>
+</div>
+<div></div>
+
+{% endblock %}
